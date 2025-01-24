@@ -29,21 +29,20 @@ namespace SLC.Input
         }
 
         public void OnPrimaryAction(InputAction.CallbackContext t_context)
-            => MouseDelta = t_context.ReadValue<Vector2>();
+        {
+
+        }
 
         public void OnJump(InputAction.CallbackContext t_context)
-            => InputVector = t_context.ReadValue<Vector2>();
+        {
 
+        }
 
         public void OnMove(InputAction.CallbackContext t_context)
-        {
-            
-        }
+            => InputVector = t_context.ReadValue<Vector2>();
 
         public void OnLook(InputAction.CallbackContext t_context)
-        {
-            
-        }
+            => MouseDelta = t_context.ReadValue<Vector2>();
 
         public void DisableActionFor(InputAction t_action, float t_seconds)
         {
