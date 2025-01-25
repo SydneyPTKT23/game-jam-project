@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,22 +5,27 @@ namespace SLC.Core
 {
     public class ProjectileStandard : ProjectileBase
     {
+        public float radius = 0.5f;
         public Transform root;
 
-        public float speed = 10.0f;
+        public float maxLifeTime = 5.0f;
 
-        public float radius = 0.5f;
+        [Space, Header("Impact VFX Settings")]
+        public GameObject impactVFX;
+        public float impactVFXlifeTime = 5.0f;
+        public float impactVFXspawnOffset = 0.1f;
 
-        public bool inheritWeaponVelocity = false;
-
-        public int damage = 10;
+        public AudioClip impactSFXclip;
 
         public LayerMask hittableLayers = -1;
+        public float speed = 10.0f;
+
+        public bool inheritWeaponVelocity = false;
+        public int damage = 10;
 
         private ProjectileBase m_projectileBase;
         private Vector3 m_lastRootPosition;
         private Vector3 m_velocity;
-        private float m_shootTime;
         private List<Collider> m_ignoredColliders;
 
         private const QueryTriggerInteraction k_triggerInteraction = QueryTriggerInteraction.Collide;
@@ -31,11 +35,11 @@ namespace SLC.Core
             m_projectileBase = GetComponent<ProjectileBase>();
             m_projectileBase.OnShoot += OnShoot;
 
+            Destroy(gameObject, maxLifeTime);
         }
 
         new void OnShoot()
         {
-            m_shootTime = Time.time;
             m_lastRootPosition = root.position;
             m_velocity = transform.forward * speed;
             m_ignoredColliders = new List<Collider>();
@@ -44,7 +48,6 @@ namespace SLC.Core
             // Ignore colliders of owner
             Collider[] t_ownerColliders = m_projectileBase.Owner.GetComponentsInChildren<Collider>();
             m_ignoredColliders.AddRange(t_ownerColliders);
-
         }
 
         private void Update()
@@ -57,17 +60,17 @@ namespace SLC.Core
 
             transform.forward = m_velocity.normalized;
 
-
             // Hit detection
             {
-                RaycastHit t_closestHit = new();
-                t_closestHit.distance = Mathf.Infinity;
-                bool t_foundHit = false;
+                RaycastHit t_closestHit = new()
+                {
+                    distance = Mathf.Infinity
+                };
 
+                bool t_foundHit = false;
                 Vector3 t_movedInLastFrame = root.position - m_lastRootPosition;
-                RaycastHit[] t_hits = Physics.SphereCastAll(m_lastRootPosition, radius,
-                    t_movedInLastFrame.normalized, t_movedInLastFrame.magnitude, hittableLayers,
-                    k_triggerInteraction);
+
+                RaycastHit[] t_hits = Physics.SphereCastAll(m_lastRootPosition, radius, t_movedInLastFrame.normalized, t_movedInLastFrame.magnitude, hittableLayers, k_triggerInteraction);
 
                 foreach (RaycastHit t_hit in t_hits)
                 {
@@ -101,13 +104,13 @@ namespace SLC.Core
             if (t_hit.collider.GetComponent<IgnoreHitDetection>())
             {
                 return false;
-            }
+            }*/
 
             // Ignore hits with triggers that don't have a Damageable component
             if (t_hit.collider.isTrigger && t_hit.collider.GetComponent<Damageable>() == null)
             {
                 return false;
-            }*/
+            }
 
             // Ignore hits with specific ignored colliders (self colliders, by default)
             if (m_ignoredColliders != null && m_ignoredColliders.Contains(t_hit.collider))
@@ -124,6 +127,22 @@ namespace SLC.Core
             if (t_damageable)
             {
                 t_damageable.InflictDamage(damage, m_projectileBase.Owner);
+            }
+
+            if (impactVFX)
+            {
+                GameObject t_instance = Instantiate(impactVFX, t_point + (t_normal * impactVFXspawnOffset),
+                    Quaternion.LookRotation(t_normal));
+
+                if (impactVFXlifeTime > 0)
+                {
+                    Destroy(t_instance, impactVFXlifeTime);
+                }
+            }
+
+            if (impactSFXclip)
+            {
+
             }
 
             Destroy(gameObject);

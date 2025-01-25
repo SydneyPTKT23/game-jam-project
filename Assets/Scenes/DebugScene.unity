@@ -534,6 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageMultiplier: 1
+  selfDamageMultiplier: 50
 --- !u!1 &1228636261
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,9 +866,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkingSpeed: 6
-  jumpForce: 10
-  gravityMultiplier: 2.5
-  stickToGroundForce: 5
+  jumpForce: 500
+  gravityMultiplier: 1.5
+  stickToGroundForce: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -878,6 +879,9 @@ MonoBehaviour:
   m_currentSpeed: 0
   m_finalRayLength: 0
   m_isGrounded: 0
+  m_previouslyGrounded: 0
+  m_inAirTimer: 0
+  jumpPressed: 0
 --- !u!143 &1485979033
 CharacterController:
   m_ObjectHideFlags: 0

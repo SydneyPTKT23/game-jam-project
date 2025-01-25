@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace SLC.Core
@@ -5,6 +6,8 @@ namespace SLC.Core
     public class Damageable : MonoBehaviour
     {
         public float damageMultiplier = 1f;
+        [Range(0, 100)] public float selfDamageMultiplier = 0.5f;
+
         public Health Health { get; private set; }
 
         private void Awake()
@@ -20,7 +23,15 @@ namespace SLC.Core
         {
             if (Health)
             {
-                Health.TakeDamage(t_damage, t_damageSource);
+                float t_totalDamage = t_damage;
+
+                if(Health.gameObject == t_damageSource)
+                {
+                    t_totalDamage *= selfDamageMultiplier;
+                }
+
+                int t_finalDamage = Convert.ToInt32(t_totalDamage);
+                Health.TakeDamage(t_finalDamage, t_damageSource);
             }
         }
     }
