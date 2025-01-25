@@ -29,7 +29,7 @@ namespace SLC.Core
         [SerializeField] private Vector3 m_finalMoveVector;
 
         [Space]
-        [SerializeField] private float m_currentSpeed;
+        [SerializeField] public float m_currentSpeed;
 
         [Space]
         [SerializeField] private float m_finalRayLength;
