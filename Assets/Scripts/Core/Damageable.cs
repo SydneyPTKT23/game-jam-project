@@ -6,7 +6,7 @@ namespace SLC.Core
     public class Damageable : MonoBehaviour
     {
         public float damageMultiplier = 1f;
-        [Range(0, 100)] public float selfDamageMultiplier = 0.5f;
+        [Range(0, 1)] public float selfDamageMultiplier = 0.5f;
 
         public Health Health { get; private set; }
 

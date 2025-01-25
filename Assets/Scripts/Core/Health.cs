@@ -12,7 +12,7 @@ namespace SLC.Core
         public UnityAction<int> OnHealed;
         public UnityAction OnDie;
 
-        public int CurrentHealth { get; set; }
+        public int CurrentHealth;
         public bool Invincible { get; set; }
         public bool m_isDead;
 
