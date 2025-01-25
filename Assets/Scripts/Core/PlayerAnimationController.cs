@@ -9,10 +9,6 @@ namespace SLC.Core
     {
         public SpriteRenderer sample;
 
-        public Sprite idle;
-        public Sprite walk;
-        public Sprite shoot;
-
         private MovementController movementController;
         private InputHandler handler;
 
@@ -25,6 +21,8 @@ namespace SLC.Core
         private readonly int move = Animator.StringToHash("move");
         private readonly int shooting = Animator.StringToHash("shoot");
 
+        bool facingRight = true;
+
         private void Start()
         {
             handler = GetComponent<InputHandler>();
@@ -33,8 +31,7 @@ namespace SLC.Core
 
         private void Update()
         {
-            Vector3 mouse = UnityEngine.Input.mousePosition;
-            mouse = Camera.main.ScreenToWorldPoint(mouse);
+            Vector3 mouse = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
 
 
             m_animator.SetFloat(HorizontalHash, handler.InputVector.x);
@@ -42,6 +39,22 @@ namespace SLC.Core
 
             m_animator.SetBool(move, handler.InputVector != Vector2.zero);
             m_animator.SetBool(shooting, handler.shoot);
+
+            if (handler.InputVector.x < 0 && !handler.shoot && facingRight)
+            {
+                flip();
+                sample.flipX = true;
+            }
+            else if (handler.InputVector.x > 0 && !handler.shoot && !facingRight)
+            {
+                flip();
+                sample.flipX = false;
+            }
+        }
+
+        private void flip()
+        {
+            facingRight = !facingRight;
         }
     }
 }
