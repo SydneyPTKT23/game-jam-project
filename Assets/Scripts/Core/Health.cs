@@ -6,40 +6,42 @@ namespace SLC.Core
     public class Health : MonoBehaviour
     {
         [Space, Header("Health Settings")]
-        [SerializeField] public int maximumHealth = 50;
+        [SerializeField] private int maximumHealth = 50;
 
         public UnityAction<int, GameObject> OnDamaged;
         public UnityAction<int> OnHealed;
         public UnityAction OnDie;
 
-        public int m_currentHealth;
+        public int CurrentHealth { get; set; }
+        public bool Invincible { get; set; }
         public bool m_isDead;
 
         private void Start()
         {
-            m_currentHealth = maximumHealth;
+            CurrentHealth = maximumHealth;
         }
 
         public void TakeDamage(int t_damage, GameObject t_damageSource)
         {
-            if (!m_isDead)
+            if (Invincible)
+                return;
+
+            int t_healthBefore = CurrentHealth;
+            CurrentHealth -= t_damage;
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, maximumHealth);
+
+            int t_trueDamage = t_healthBefore - CurrentHealth;
+            if (t_trueDamage > 0)
             {
-                m_currentHealth -= t_damage;
-                m_currentHealth = Mathf.Clamp(m_currentHealth, 0, maximumHealth);
-
-                OnDamaged?.Invoke(t_damage, t_damageSource);
-
-                if (m_currentHealth <= 0)
-                {
-                    m_currentHealth = 0;
-                    HandleDeath();
-                }
+                OnDamaged?.Invoke(t_trueDamage, t_damageSource);
             }
+
+            HandleDeath();
         }
 
         public void Kill()
         {
-            m_currentHealth = 0;
+            CurrentHealth = 0;
             OnDamaged?.Invoke(maximumHealth, null);
 
             HandleDeath();
@@ -47,9 +49,10 @@ namespace SLC.Core
 
         private void HandleDeath()
         {
-            if (m_isDead) { return; }
+            if (m_isDead)
+                return;
 
-            if (m_currentHealth <= 0f)
+            if (CurrentHealth <= 0f)
             {
                 m_isDead = true;
                 OnDie?.Invoke();

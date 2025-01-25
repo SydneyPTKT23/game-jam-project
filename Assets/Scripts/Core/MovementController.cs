@@ -160,8 +160,8 @@ namespace SLC.Core
             else
             {                
                 // If collided with a ceiling during air time, stop the player from sticking to the roof.
-                //if (CheckIfRoof())
-                //    m_finalMoveVector.y = -stickToGroundForce;
+                if (CheckIfRoof())
+                    m_finalMoveVector.y = -stickToGroundForce;
 
                 m_inAirTimer += Time.deltaTime;
                 m_finalMoveVector += gravityMultiplier * Time.deltaTime * Physics.gravity;
