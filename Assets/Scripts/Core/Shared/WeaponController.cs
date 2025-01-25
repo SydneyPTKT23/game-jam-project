@@ -54,11 +54,12 @@ namespace SLC.Core
         {
             if (m_currentAmmo >= 1 && Time.time >= m_nextTimeToFire)
             {
-                Debug.Log("shoot");
-                SpawnProjectile();
-                m_nextTimeToFire = Time.time + fireRate;
-
                 m_currentAmmo -= 1;
+
+                SpawnProjectile();
+
+                CameraShake.Instance.ShakeCamera(5f, 0.1f);
+                m_nextTimeToFire = Time.time + fireRate;
             }
         }
 
