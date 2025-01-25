@@ -31,6 +31,8 @@ namespace SLC.Core
 
         private void Start()
         {
+            m_currentAmmo = 999;
+
             LastMuzzlePosition = WeaponMuzzle.position;
 
             Owner = gameObject;
@@ -45,14 +47,14 @@ namespace SLC.Core
             }
 
             if (handler.shoot)
-                SpawnProjectile();
+                HandleShoot();
         }
 
         private void HandleShoot()
         {
-            Debug.Log("shoot");
-            if (m_currentAmmo >= 1.0f && Time.time >= m_nextTimeToFire)
+            if (m_currentAmmo >= 1 && Time.time >= m_nextTimeToFire)
             {
+                Debug.Log("shoot");
                 SpawnProjectile();
                 m_nextTimeToFire = Time.time + fireRate;
 

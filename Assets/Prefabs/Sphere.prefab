@@ -96,3 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f651b8a60530745429d9f4117db2d548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  root: {fileID: 1153331273906368202}
+  speed: 10
+  radius: 0.6
+  inheritWeaponVelocity: 0
+  damage: 40
+  hittableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295

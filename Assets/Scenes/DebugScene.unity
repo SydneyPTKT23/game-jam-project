@@ -327,8 +327,8 @@ Transform:
   m_GameObject: {fileID: 758919906}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1462786549}
@@ -367,7 +367,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 17bddaad8353980459f87a2dd9ad5e64, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -388,8 +388,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.7830189, g: 0.48384658, b: 0.48384658, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ba7c9914eaacc8a4899223217664d9f4, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -411,6 +411,8 @@ GameObject:
   - component: {fileID: 1012845591}
   - component: {fileID: 1012845590}
   - component: {fileID: 1012845589}
+  - component: {fileID: 1012845594}
+  - component: {fileID: 1012845593}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -498,12 +500,40 @@ Transform:
   m_GameObject: {fileID: 1012845588}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.2566529, z: -0, w: 0.9665037}
-  m_LocalPosition: {x: -1.8, y: 0.5, z: 2.69}
+  m_LocalPosition: {x: -1.8, y: 0.4, z: 2.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 29.743, z: 0}
+--- !u!114 &1012845593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012845588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5af32c64dc7fea448c8a3401158463f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maximumHealth: 50
+  m_currentHealth: 0
+  m_isDead: 0
+--- !u!114 &1012845594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012845588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c301e334c6d9de4496efbd134c3b0ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &1228636261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +1034,7 @@ MonoBehaviour:
   ProjectilePrefab: {fileID: 6865158951120918330, guid: 098301ea00337884596d3de497971a4c, type: 3}
   bulletsPerShot: 1
   BulletSpreadAngle: 0
-  fireRate: 0.2
+  fireRate: 0.4
   LastMuzzlePosition: {x: 0, y: 0, z: 0}
   WeaponMuzzle: {fileID: 1882777902}
 --- !u!1 &1896917204
