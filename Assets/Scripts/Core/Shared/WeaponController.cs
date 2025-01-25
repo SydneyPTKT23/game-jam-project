@@ -1,3 +1,4 @@
+using SLC.Input;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace SLC.Core
 {
     public class WeaponController : MonoBehaviour
     {
+        public InputHandler handler;
+
         private int m_currentAmmo;
         private float m_nextTimeToFire = Mathf.NegativeInfinity;
 
@@ -15,6 +18,7 @@ namespace SLC.Core
         public int bulletsPerShot = 1;
         public float BulletSpreadAngle = 0;
 
+        public float fireRate = 0.2f;
 
         public UnityAction OnShoot;
 
@@ -39,19 +43,22 @@ namespace SLC.Core
                 MuzzleWorldVelocity = (WeaponMuzzle.position - LastMuzzlePosition) / Time.deltaTime;
                 LastMuzzlePosition = WeaponMuzzle.position;
             }
+
+            if (handler.shoot)
+                SpawnProjectile();
         }
 
-        /*
         private void HandleShoot()
         {
+            Debug.Log("shoot");
             if (m_currentAmmo >= 1.0f && Time.time >= m_nextTimeToFire)
             {
-                Shoot();
+                SpawnProjectile();
                 m_nextTimeToFire = Time.time + fireRate;
 
                 m_currentAmmo -= 1;
             }
-        }*/
+        }
 
         public void SpawnProjectile()
         {

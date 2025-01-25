@@ -36,7 +36,7 @@ namespace SLC.Core
 
         private void Aim()
         {
-            var (success, position) = GetMousePosition();
+            (bool success, Vector3 position) = GetMousePosition();
             if (success)
             {
                 // Calculate the direction
@@ -53,9 +53,9 @@ namespace SLC.Core
 
         private (bool success, Vector3 position) GetMousePosition()
         {
-            var ray = mainCamera.ScreenPointToRay(UnityEngine.Input.mousePosition);
+            Ray ray = mainCamera.ScreenPointToRay(UnityEngine.Input.mousePosition);
 
-            if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, groundMask))
             {
                 // The Raycast hit something, return with the position.
                 return (success: true, position: hitInfo.point);

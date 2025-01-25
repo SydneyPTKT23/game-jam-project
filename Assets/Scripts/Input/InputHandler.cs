@@ -11,6 +11,9 @@ namespace SLC.Input
         public Vector2 InputVector { get; private set; }
 
 
+        public bool shoot;
+
+
         public PlayerControls InputActions { get; private set; }
 
         private void OnEnable()
@@ -30,7 +33,11 @@ namespace SLC.Input
 
         public void OnPrimaryAction(InputAction.CallbackContext t_context)
         {
-
+            /*
+            if (!t_context.performed)
+                return;
+            */
+            shoot = t_context.ReadValueAsButton();
         }
 
         public void OnJump(InputAction.CallbackContext t_context)
