@@ -1,0 +1,16 @@
+{
+    "name": "SLC.Core",
+    "rootNamespace": "SLC.Core",
+    "references": [
+        "GUID:f8d6165e0e4ee52458d6a99bb9a28b0f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
