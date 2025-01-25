@@ -29,26 +29,32 @@ namespace SLC.Core
         [SerializeField] private Vector3 m_finalMoveVector;
 
         [Space]
-        [SerializeField] private float m_currentSpeed;
+        [SerializeField] public float m_currentSpeed;
 
         [Space]
         [SerializeField] private float m_finalRayLength;
 
+        [Space]
         [SerializeField] private bool m_isGrounded;
+        [SerializeField] private bool m_previouslyGrounded;
+        [Space]
+        [SerializeField] private float m_inAirTimer;
+
+        public bool jumpPressed;
 
         private void Start()
         {
             m_characterController = GetComponent<CharacterController>();
             m_inputHandler = GetComponent<InputHandler>();
 
-            //m_inputHandler.OnJumpEvent += OnJumpEvent;
+            m_inputHandler.OnJumpEvent += OnJumpEvent;
 
             m_finalRayLength = rayLength + m_characterController.center.y;
 
             m_isGrounded = true;
-            //m_previouslyGrounded = true;
+            m_previouslyGrounded = true;
 
-            //m_inAirTimer = 0f;
+            m_inAirTimer = 0f;
         }
 
         private void Update()
@@ -64,7 +70,7 @@ namespace SLC.Core
                 CalculateFinalMovement();
 
                 // Move the player.
-                //ApplyGravity();
+                ApplyGravity();
                 ApplyMovement();
             }
         }
@@ -78,6 +84,13 @@ namespace SLC.Core
             // Draw the groundcheck for convenience.
             Debug.DrawRay(t_origin, Vector3.down * rayLength, Color.red);
             m_isGrounded = t_hitGround;
+        }
+
+        private bool CheckIfRoof()
+        {
+            Vector3 t_origin = transform.position;
+            bool t_hitRoof = Physics.SphereCast(t_origin, raySphereRadius, Vector3.up, out _, rayLength, groundLayer);
+            return t_hitRoof;
         }
 
         public void CalculateDirection()
@@ -111,6 +124,48 @@ namespace SLC.Core
         private void CalculateSpeed()
         {
             m_currentSpeed = m_inputHandler.InputVector == Vector2.zero ? 0.0f : walkingSpeed;
+        }
+
+        private void OnJumpEvent()
+        {
+            if (m_characterController.isGrounded && jumpPressed == false)
+            {
+                jumpPressed = true;
+            }
+        }
+
+        private void HandleJump()
+        {
+            if (jumpPressed)
+            {
+                m_finalMoveVector.y = jumpForce;
+
+                m_previouslyGrounded = true;
+                m_isGrounded = false;
+
+                jumpPressed = false;
+            }
+        }
+
+        private void ApplyGravity()
+        {
+            // If grounded, add a little bit of extra downward force just in case.
+            if (m_characterController.isGrounded)
+            {
+                m_inAirTimer = 0f;
+                m_finalMoveVector.y = -stickToGroundForce;
+
+                HandleJump();
+            }
+            else
+            {                
+                // If collided with a ceiling during air time, stop the player from sticking to the roof.
+                if (CheckIfRoof())
+                    m_finalMoveVector.y = -stickToGroundForce;
+
+                m_inAirTimer += Time.deltaTime;
+                m_finalMoveVector += gravityMultiplier * Time.deltaTime * Physics.gravity;
+            }
         }
 
         private void ApplyMovement()

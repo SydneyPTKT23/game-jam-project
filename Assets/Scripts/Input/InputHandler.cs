@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +10,7 @@ namespace SLC.Input
         public Vector2 MouseDelta { get; private set; }
         public Vector2 InputVector { get; private set; }
 
+        public Action OnJumpEvent;
 
         public bool shoot;
 
@@ -42,7 +43,10 @@ namespace SLC.Input
 
         public void OnJump(InputAction.CallbackContext t_context)
         {
+            if (!t_context.performed)
+                return;
 
+            OnJumpEvent?.Invoke();
         }
 
         public void OnMove(InputAction.CallbackContext t_context)

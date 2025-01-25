@@ -6,7 +6,6 @@ namespace SLC.Core
     {
         [SerializeField] private Transform m_cameraTransform;
         private Transform m_localTransform;
-        public bool alignNotLook = true;
 
         void Start()
         {
@@ -16,14 +15,9 @@ namespace SLC.Core
 
         void LateUpdate()
         {
-            if (alignNotLook)
-            {
-                m_localTransform.forward = m_cameraTransform.forward;
-            }
-            else
-            {
-                m_localTransform.LookAt(m_cameraTransform, Vector3.up);
-            }        
+            Vector3 t_lookPosition = m_cameraTransform.position - m_localTransform.position;
+            t_lookPosition.y = 0f;
+            transform.rotation = Quaternion.LookRotation(t_lookPosition);
         }
     }
 }

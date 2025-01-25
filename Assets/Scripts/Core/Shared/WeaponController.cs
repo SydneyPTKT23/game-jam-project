@@ -6,80 +6,95 @@ using UnityEngine.Events;
 
 namespace SLC.Core
 {
+    [RequireComponent(typeof(AudioSource))]
     public class WeaponController : MonoBehaviour
     {
         public InputHandler handler;
 
-        private int m_currentAmmo;
-        private float m_nextTimeToFire = Mathf.NegativeInfinity;
+        public GameObject WeaponRoot;
+        public Transform WeaponMuzzle;
 
         public ProjectileBase ProjectilePrefab;
 
-        public int bulletsPerShot = 1;
+        public float FireRate = 0.2f;
         public float BulletSpreadAngle = 0;
 
-        public float fireRate = 0.2f;
+        public int BulletsPerShot = 1;
+        public float RecoilForce = 1.0f;
+
+        public int MaxAmmo = 50;
 
         public UnityAction OnShoot;
 
-        public Vector3 LastMuzzlePosition;
+        private int m_CurrentAmmo;
+        private float m_NextTimeToFire = Mathf.NegativeInfinity;
+        public Vector3 m_LastMuzzlePosition;
+
 
         public GameObject Owner { get; set; }
-        public Transform WeaponMuzzle;
-
+        public GameObject SourcePrefab { get; set; }
         public Vector3 MuzzleWorldVelocity { get; private set; }
+
+
+        public int GetCurrentAmmo() => Mathf.FloorToInt(m_CurrentAmmo);
+
+        private AudioSource m_audioSource;
 
         private void Start()
         {
-            LastMuzzlePosition = WeaponMuzzle.position;
+            m_CurrentAmmo = MaxAmmo;
+            m_LastMuzzlePosition = WeaponMuzzle.position;
+
+            m_audioSource = GetComponent<AudioSource>();
 
             Owner = gameObject;
         }
 
         private void Update()
         {
+            if (handler.shoot)
+                HandleShoot();
+
             if (Time.deltaTime > 0)
             {
-                MuzzleWorldVelocity = (WeaponMuzzle.position - LastMuzzlePosition) / Time.deltaTime;
-                LastMuzzlePosition = WeaponMuzzle.position;
+                MuzzleWorldVelocity = (WeaponMuzzle.position - m_LastMuzzlePosition) / Time.deltaTime;
+                m_LastMuzzlePosition = WeaponMuzzle.position;
             }
+        }
 
-            if (handler.shoot)
-                SpawnProjectile();
+        public void UseAmmo(int t_amount)
+        {
+            m_CurrentAmmo = Mathf.Clamp(m_CurrentAmmo - t_amount, 0, MaxAmmo);
+            m_NextTimeToFire = Time.time;
         }
 
         private void HandleShoot()
         {
-            Debug.Log("shoot");
-            if (m_currentAmmo >= 1.0f && Time.time >= m_nextTimeToFire)
+            if (m_CurrentAmmo >= 1 && Time.time >= m_NextTimeToFire)
             {
                 SpawnProjectile();
-                m_nextTimeToFire = Time.time + fireRate;
+                m_CurrentAmmo -= 1;
 
-                m_currentAmmo -= 1;
+                CameraShake.Instance.ShakeCamera(5f, 0.1f);
+                m_NextTimeToFire = Time.time + FireRate;
             }
         }
 
         public void SpawnProjectile()
         {
-            for (int i = 0; i < bulletsPerShot; i++)
+            for (int i = 0; i < BulletsPerShot; i++)
             {
-                Vector3 t_shotDirection = GetShotDirectionWithinSpread(WeaponMuzzle);
-                ProjectileBase t_newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position,
-                    Quaternion.LookRotation(t_shotDirection));
+                float t_addedOffset = Random.Range(-BulletSpreadAngle / 2, BulletSpreadAngle / 2);
+
+                Quaternion t_newRotation = Quaternion.Euler(WeaponMuzzle.eulerAngles.x, WeaponMuzzle.eulerAngles.y + t_addedOffset, WeaponMuzzle.eulerAngles.z);
+
+                ProjectileBase t_newProjectile = Instantiate(ProjectilePrefab, WeaponMuzzle.position, t_newRotation);
                 t_newProjectile.Shoot(this);
             }
 
+            m_NextTimeToFire = Time.time;
+
             OnShoot?.Invoke();
-        }
-
-        public Vector3 GetShotDirectionWithinSpread(Transform t_shootTransform)
-        {
-            float t_spreadAngleRatio = BulletSpreadAngle / 180f;
-            Vector3 t_spreadWorldDirection = Vector3.Slerp(t_shootTransform.forward, Random.insideUnitSphere,
-                t_spreadAngleRatio);
-
-            return t_spreadWorldDirection;
         }
     }
 }

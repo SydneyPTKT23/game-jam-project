@@ -15,8 +15,6 @@ namespace SLC.Core
 
         #endregion
 
-
-
         #region Methods
 
         #region Unity Callbacks
