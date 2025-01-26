@@ -16,9 +16,22 @@ namespace SLC.Core
         public bool Invincible { get; set; }
         public bool m_isDead;
 
+        [SerializeField] private ResourceBarTracker healthBar;
+
         private void Start()
         {
             CurrentHealth = maximumHealth;
+
+            healthBar.Setup(
+                CurrentHealth,
+                maximumHealth,
+                1000,
+                false,
+                ResourceBarTracker.ShapeType.RectangleHorizontal,
+                ResourceBarTracker.DisplayType.LongValue,
+                false,
+                null
+                );
         }
 
         public void TakeDamage(int t_damage, GameObject t_damageSource)
@@ -34,6 +47,8 @@ namespace SLC.Core
             if (t_trueDamage > 0)
             {
                 OnDamaged?.Invoke(t_trueDamage, t_damageSource);
+
+                healthBar.ChangeResourceByAmount(-t_trueDamage);
             }
 
             HandleDeath();
@@ -43,6 +58,7 @@ namespace SLC.Core
         {
             CurrentHealth = 0;
             OnDamaged?.Invoke(maximumHealth, null);
+
 
             HandleDeath();
         }
