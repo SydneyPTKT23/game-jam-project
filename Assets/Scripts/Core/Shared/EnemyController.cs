@@ -16,6 +16,7 @@ namespace SLC.Core
 
         public UnityAction onDamaged;
 
+        public GameObject prefab;
 
         public NavMeshAgent NavMeshAgent { get; private set; }
 
@@ -66,9 +67,8 @@ namespace SLC.Core
 
         private void OnDie()
         {
-
+            GameObject t_instance = Instantiate(prefab, transform.position, Quaternion.identity);
             m_enemyManager.UnregisterEnemy(this);
-
 
             Destroy(gameObject, deathDuration);
         }

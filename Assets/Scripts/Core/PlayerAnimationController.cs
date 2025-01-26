@@ -20,6 +20,7 @@ namespace SLC.Core
 
         private readonly int move = Animator.StringToHash("move");
         private readonly int shooting = Animator.StringToHash("shoot");
+        private readonly int falling = Animator.StringToHash("falling");
 
         bool facingRight = true;
 
@@ -33,6 +34,7 @@ namespace SLC.Core
         {
             Vector3 mouse = Camera.main.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
 
+            m_animator.SetBool(falling, !movementController.m_isGrounded);
 
             m_animator.SetFloat(HorizontalHash, handler.InputVector.x);
             m_animator.SetFloat(VerticalHash, handler.InputVector.y);

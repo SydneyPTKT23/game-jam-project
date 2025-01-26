@@ -35,7 +35,7 @@ namespace SLC.Core
         [SerializeField] private float m_finalRayLength;
 
         [Space]
-        [SerializeField] private bool m_isGrounded;
+        public bool m_isGrounded;
         [SerializeField] private bool m_previouslyGrounded;
         [Space]
         [SerializeField] private float m_inAirTimer;
