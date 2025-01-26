@@ -27,6 +27,8 @@ namespace SLC.Core
 
         private Collider[] m_selfColliders;
 
+        EnemySpawner spawner;
+
         private void Start()
         {
             m_enemyManager = FindObjectOfType<EnemyManager>();
@@ -41,11 +43,8 @@ namespace SLC.Core
 
             m_health.OnDie += OnDie;
             m_health.OnDamaged += OnDamaged;
-        }
 
-        private void Update()
-        {
-            
+            spawner = FindObjectOfType<EnemySpawner>();
         }
 
         public void SetNavDestination(Vector3 t_destination)
@@ -70,6 +69,7 @@ namespace SLC.Core
             GameObject t_instance = Instantiate(prefab, transform.position, Quaternion.identity);
             m_enemyManager.UnregisterEnemy(this);
 
+            spawner.creatures.Remove(gameObject);
             Destroy(gameObject, deathDuration);
         }
     }

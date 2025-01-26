@@ -68,5 +68,11 @@ namespace SLC.Input
 
             t_action.Enable();
         }
+
+        public void OnGug(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+                Application.Quit();
+        }
     }
 }

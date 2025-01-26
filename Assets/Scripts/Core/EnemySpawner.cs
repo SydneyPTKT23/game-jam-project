@@ -12,6 +12,9 @@ namespace SLC.Core
 
         public float m_nextSpawn;
 
+        public int creatureCap = 50;
+        public List<GameObject> creatures;
+
         public GameObject spawnPrefab;
 
         public Transform[] spawnPoints;
@@ -20,7 +23,10 @@ namespace SLC.Core
 
         private void Update()
         {
-            SpawnCreature();
+            if (creatures.Count < creatureCap)
+            {
+                SpawnCreature();
+            }          
         }
 
         private void SpawnCreature()
@@ -30,7 +36,9 @@ namespace SLC.Core
             if (m_nextSpawn >= spawnInterval)
             {
                 Transform t_spawn = spawnPoints[Random.Range(0, spawnPoints.Length)].transform;
-                Instantiate(spawnPrefab, t_spawn.position, Quaternion.identity);
+                GameObject t_sus = Instantiate(spawnPrefab, t_spawn.position, Quaternion.identity);
+                creatures.Add(t_sus);
+
 
                 m_nextSpawn = 0f;
                 spawnInterval -= timeAdd;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SLC.Core
 {
@@ -16,6 +17,7 @@ namespace SLC.Core
             m_health = GetComponent<Health>();
 
             m_health.OnDamaged += OnDamaged;
+            m_health.OnDie += Restart;
         }
 
         private void OnDamaged(int t_damage, GameObject t_damageSource)
@@ -39,6 +41,11 @@ namespace SLC.Core
             yield return new WaitForSeconds(2);
 
             m_health.Invincible = false;
+        }
+
+        private void Restart()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }
