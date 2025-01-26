@@ -70,7 +70,9 @@ namespace SLC.Core
 
         private void HandleShoot()
         {
-            if (m_CurrentAmmo >= 1 && Time.time >= m_NextTimeToFire)
+            //m_CurrentAmmo >= 1 && 
+
+            if (Time.time >= m_NextTimeToFire)
             {
                 SpawnProjectile();
                 m_CurrentAmmo -= 1;

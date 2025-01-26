@@ -58,7 +58,7 @@ MonoBehaviour:
     m_Bits: 1
   speed: 10
   inheritWeaponVelocity: 0
-  damage: 40
+  damage: 1
 --- !u!212 &6416960849806222539
 SpriteRenderer:
   m_ObjectHideFlags: 0
