@@ -17,7 +17,7 @@ namespace SLC.Core
         {
             Vector3 t_lookPosition = m_cameraTransform.position - m_localTransform.position;
             t_lookPosition.y = 0f;
-            transform.rotation = Quaternion.LookRotation(t_lookPosition);
+            transform.rotation = Quaternion.identity;
         }
     }
 }

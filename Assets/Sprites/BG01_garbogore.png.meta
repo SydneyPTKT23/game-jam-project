@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 05ed66dfecf6fbf4f8ec92fb86b8729b
+guid: 54087867ba715ff43b338c0a347279e1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -175,13 +175,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG01_bubbles_0
+      name: BG01_garbogore_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 24
-        width: 2
-        height: 2
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,20 +189,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8367cf4221cb43d48950cc8357956bb4
-      internalID: 1814683495
+      spriteID: ce3548ddca6219e49adc966c2fd184df
+      internalID: 468787223
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BG01_bubbles_1
+      name: BG01_garbogore_1
       rect:
         serializedVersion: 2
-        x: 15
-        y: 19
-        width: 10
-        height: 10
+        x: 12
+        y: 24
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,20 +210,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b858828d084aac4999bf25c4a5b9e00
-      internalID: -2365461
+      spriteID: 6540ffffa0138b74487413510b8a1af7
+      internalID: 822237808
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BG01_bubbles_2
+      name: BG01_garbogore_2
       rect:
         serializedVersion: 2
-        x: 7
-        y: 22
-        width: 5
-        height: 5
+        x: 24
+        y: 24
+        width: 12
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,8 +231,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1a4b0a19c75f1b41a6b54fd26ac8736
-      internalID: -1581890689
+      spriteID: 7e3fdecd95f9ed748871647bc47be38f
+      internalID: 1178798470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG01_garbogore_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 308062b9a776a4b4092bfa4668e82903
+      internalID: -805034989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG01_garbogore_4
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bf1eefccb26f1441960c5699ecf5d0f
+      internalID: 1513713339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG01_garbogore_5
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 12
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b1bef0a2ceb2d342bd5faae3c062e3b
+      internalID: -316014063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG01_garbogore_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1799b0d0bc812a14bb1e715b183e9775
+      internalID: 668928512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG01_garbogore_7
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b5421883a8dba14c9f9ef19e4da03ef
+      internalID: 1914325473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG01_garbogore_8
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdaae99713e35cb42856ba32a863853a
+      internalID: 144426002
       vertices: []
       indices: 
       edges: []
@@ -248,9 +374,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BG01_bubbles_0: 1814683495
-      BG01_bubbles_1: -2365461
-      BG01_bubbles_2: -1581890689
+      BG01_garbogore_0: 468787223
+      BG01_garbogore_1: 822237808
+      BG01_garbogore_2: 1178798470
+      BG01_garbogore_3: -805034989
+      BG01_garbogore_4: 1513713339
+      BG01_garbogore_5: -316014063
+      BG01_garbogore_6: 668928512
+      BG01_garbogore_7: 1914325473
+      BG01_garbogore_8: 144426002
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
