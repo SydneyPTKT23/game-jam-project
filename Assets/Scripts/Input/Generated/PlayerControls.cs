@@ -64,6 +64,15 @@ namespace SLC.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Gug"",
+                    ""type"": ""Button"",
+                    ""id"": ""f84fe39d-1930-47e8-bbd0-52538bc39fd6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -154,6 +163,17 @@ namespace SLC.Input
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d3cc41d-804b-45ca-b8c3-519f367a4fad"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -166,6 +186,7 @@ namespace SLC.Input
             m_PlayerInput_Jump = m_PlayerInput.FindAction("Jump", throwIfNotFound: true);
             m_PlayerInput_Move = m_PlayerInput.FindAction("Move", throwIfNotFound: true);
             m_PlayerInput_Look = m_PlayerInput.FindAction("Look", throwIfNotFound: true);
+            m_PlayerInput_Gug = m_PlayerInput.FindAction("Gug", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -231,6 +252,7 @@ namespace SLC.Input
         private readonly InputAction m_PlayerInput_Jump;
         private readonly InputAction m_PlayerInput_Move;
         private readonly InputAction m_PlayerInput_Look;
+        private readonly InputAction m_PlayerInput_Gug;
         public struct PlayerInputActions
         {
             private @PlayerControls m_Wrapper;
@@ -239,6 +261,7 @@ namespace SLC.Input
             public InputAction @Jump => m_Wrapper.m_PlayerInput_Jump;
             public InputAction @Move => m_Wrapper.m_PlayerInput_Move;
             public InputAction @Look => m_Wrapper.m_PlayerInput_Look;
+            public InputAction @Gug => m_Wrapper.m_PlayerInput_Gug;
             public InputActionMap Get() { return m_Wrapper.m_PlayerInput; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -260,6 +283,9 @@ namespace SLC.Input
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @Gug.started += instance.OnGug;
+                @Gug.performed += instance.OnGug;
+                @Gug.canceled += instance.OnGug;
             }
 
             private void UnregisterCallbacks(IPlayerInputActions instance)
@@ -276,6 +302,9 @@ namespace SLC.Input
                 @Look.started -= instance.OnLook;
                 @Look.performed -= instance.OnLook;
                 @Look.canceled -= instance.OnLook;
+                @Gug.started -= instance.OnGug;
+                @Gug.performed -= instance.OnGug;
+                @Gug.canceled -= instance.OnGug;
             }
 
             public void RemoveCallbacks(IPlayerInputActions instance)
@@ -299,6 +328,7 @@ namespace SLC.Input
             void OnJump(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
             void OnLook(InputAction.CallbackContext context);
+            void OnGug(InputAction.CallbackContext context);
         }
     }
 }

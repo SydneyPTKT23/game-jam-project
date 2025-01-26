@@ -6,7 +6,7 @@ namespace SLC.Core
     public class Health : MonoBehaviour
     {
         [Space, Header("Health Settings")]
-        [SerializeField] private int maximumHealth = 50;
+        public int maximumHealth = 50;
 
         public UnityAction<int, GameObject> OnDamaged;
         public UnityAction<int> OnHealed;

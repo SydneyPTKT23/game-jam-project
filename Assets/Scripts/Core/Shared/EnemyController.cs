@@ -16,6 +16,7 @@ namespace SLC.Core
 
         public UnityAction onDamaged;
 
+        public GameObject prefab;
 
         public NavMeshAgent NavMeshAgent { get; private set; }
 
@@ -25,6 +26,8 @@ namespace SLC.Core
         private Health m_health;
 
         private Collider[] m_selfColliders;
+
+        EnemySpawner spawner;
 
         private void Start()
         {
@@ -40,11 +43,8 @@ namespace SLC.Core
 
             m_health.OnDie += OnDie;
             m_health.OnDamaged += OnDamaged;
-        }
 
-        private void Update()
-        {
-            
+            spawner = FindObjectOfType<EnemySpawner>();
         }
 
         public void SetNavDestination(Vector3 t_destination)
@@ -66,10 +66,10 @@ namespace SLC.Core
 
         private void OnDie()
         {
-
+            GameObject t_instance = Instantiate(prefab, transform.position, Quaternion.identity);
             m_enemyManager.UnregisterEnemy(this);
 
-
+            spawner.creatures.Remove(gameObject);
             Destroy(gameObject, deathDuration);
         }
     }

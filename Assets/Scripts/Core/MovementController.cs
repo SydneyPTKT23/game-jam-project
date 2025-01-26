@@ -35,10 +35,12 @@ namespace SLC.Core
         [SerializeField] private float m_finalRayLength;
 
         [Space]
-        [SerializeField] private bool m_isGrounded;
+        public bool m_isGrounded;
         [SerializeField] private bool m_previouslyGrounded;
         [Space]
         [SerializeField] private float m_inAirTimer;
+
+        public float KillHeight = -10f;
 
         public bool jumpPressed;
 
@@ -59,6 +61,11 @@ namespace SLC.Core
 
         private void Update()
         {
+            if (transform.position.y <= KillHeight)
+            {
+                GetComponent<Health>().Kill();
+            }
+
             if (m_characterController)
             {
                 // Check if the player is grounded.

@@ -40,6 +40,8 @@ namespace SLC.Core
 
         new void OnShoot()
         {
+
+
             m_lastRootPosition = root.position;
             m_velocity = transform.forward * speed;
             m_ignoredColliders = new List<Collider>();
