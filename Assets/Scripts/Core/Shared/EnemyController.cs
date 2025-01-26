@@ -13,6 +13,7 @@ namespace SLC.Core
 
         public float deathDuration = 0f;
 
+        public AudioClip roar;
 
         public UnityAction onDamaged;
 
@@ -36,7 +37,6 @@ namespace SLC.Core
             m_enemyManager.RegisterEnemy(this);
 
             m_health = GetComponent<Health>();
-
 
             NavMeshAgent = GetComponent<NavMeshAgent>();
             m_selfColliders = GetComponentsInChildren<Collider>();

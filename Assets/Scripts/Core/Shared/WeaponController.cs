@@ -35,6 +35,8 @@ namespace SLC.Core
         public GameObject SourcePrefab { get; set; }
         public Vector3 MuzzleWorldVelocity { get; private set; }
 
+        public AudioClip sound;
+        public AudioSource src;
 
         public int GetCurrentAmmo() => Mathf.FloorToInt(m_CurrentAmmo);
 
@@ -76,6 +78,8 @@ namespace SLC.Core
             {
                 SpawnProjectile();
                 m_CurrentAmmo -= 1;
+
+                src.PlayOneShot(sound);
 
                 CameraShake.Instance.ShakeCamera(5f, 0.1f);
                 m_NextTimeToFire = Time.time + FireRate;

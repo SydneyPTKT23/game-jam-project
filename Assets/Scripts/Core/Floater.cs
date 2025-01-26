@@ -9,6 +9,16 @@ namespace SLC.Core
         public AnimationCurve myCurve;
         public GameObject prefab;
 
+        public AudioClip clip;
+        public AudioSource source;
+
+        public Status2 joo;
+
+        private void Start()
+        {
+            joo = FindObjectOfType<Status2>();
+        }
+
         // Update is called once per frame
         void Update()
         {
@@ -20,6 +30,11 @@ namespace SLC.Core
             GameObject t_particle = Instantiate(prefab, transform.position, Quaternion.identity);
             Destroy(t_particle, 2f);
 
+            source.gameObject.transform.parent = null;
+            source.PlayOneShot(clip);
+            Destroy(source, 2f);
+
+            joo.Adder();
             Destroy(gameObject);
         }
     }
